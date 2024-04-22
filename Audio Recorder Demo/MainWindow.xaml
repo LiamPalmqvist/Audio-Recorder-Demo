@@ -35,19 +35,50 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
         <Button Name="AudioRecorderButton" 
                 Click="AudioRecorderButton_Click" 
                 Style="{StaticResource NoMouseOverButtonStyle}"
                 Grid.Row="0" Background="Red" 
                 Focusable="False">
-            <TextBlock Text="Record" Grid.Row="0" Background="{x:Null}" FontSize="100" FontFamily="Uniform"/>
+            <StackPanel>
+                <TextBlock Text="Record" Grid.Row="0" Grid.Column="0" Background="{x:Null}" FontSize="60" FontFamily="Uniform" HorizontalAlignment="Center"/>
+                <TextBlock Text="Mic Audio" Grid.Row="0" Grid.Column="0" Background="{x:Null}" FontSize="60" FontFamily="Uniform" HorizontalAlignment="Center"/>
+            </StackPanel>
         </Button>
         <Button Name="AudioRecorderOffButton" 
                 Click="AudioRecorderOffButton_Click" 
                 Style="{StaticResource NoMouseOverButtonStyle}"
                 Grid.Row="0" Background="#FF02FF00"
                 Visibility="Hidden" Focusable="False">
-            <TextBlock Text="Stop recording" Grid.Row="0" Background="{x:Null}" FontSize="100" FontFamily="Uniform"/>
+            <StackPanel>
+                <TextBlock Text="Stop Recording" Grid.Row="0" Grid.Column="0" Background="{x:Null}" FontSize="60" FontFamily="Uniform" HorizontalAlignment="Center"/>
+                <TextBlock Text="Mic Audio" Grid.Row="0" Grid.Column="0" Background="{x:Null}" FontSize="60" FontFamily="Uniform" HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Button>
+
+        <Button Name="DesktopAudioRecorderButton" 
+        Click="DesktopAudioRecorderButton_Click" 
+        Style="{StaticResource NoMouseOverButtonStyle}"
+        Grid.Row="0" Grid.Column="1" Background="Red" 
+        Focusable="False">
+            <StackPanel>
+                <TextBlock Text="Record" Grid.Row="0" Grid.Column="0" Background="{x:Null}" FontSize="60" FontFamily="Uniform" HorizontalAlignment="Center"/>
+                <TextBlock Text="Desktop Audio" Grid.Row="0" Grid.Column="0" Background="{x:Null}" FontSize="60" FontFamily="Uniform" HorizontalAlignment="Center"/>
+            </StackPanel>
+        </Button>
+        <Button Name="DesktopAudioRecorderOffButton" 
+        Click="DesktopAudioRecorderOffButton_Click" 
+        Style="{StaticResource NoMouseOverButtonStyle}"
+        Grid.Row="0" Grid.Column="1" Background="#FF02FF00"
+        Visibility="Hidden" Focusable="False">
+            <StackPanel>
+                <TextBlock Text="Stop Recording" Grid.Row="0" Grid.Column="0" Background="{x:Null}" FontSize="60" FontFamily="Uniform" HorizontalAlignment="Center"/>
+                <TextBlock Text="Desktop Audio" Grid.Row="0" Grid.Column="0" Background="{x:Null}" FontSize="60" FontFamily="Uniform" HorizontalAlignment="Center"/>
+            </StackPanel>
         </Button>
         <TextBlock Name="URITextBlock" Grid.Row="1" Text="{x:Null}" HorizontalAlignment="Center" Background="{x:Null}"/>
     </Grid>

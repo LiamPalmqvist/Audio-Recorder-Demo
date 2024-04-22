@@ -23,8 +23,10 @@ namespace Audio_Recorder_Demo
         internal string RecordingURI = "";
         string tempName = System.IO.Path.GetTempFileName();
   
-        internal WaveInEvent waveIn = new WaveInEvent(); 
+        internal WaveInEvent waveIn = new WaveInEvent();
+        internal WasapiLoopbackCapture desktopWaveIn = new WasapiLoopbackCapture(); 
         internal WaveFileWriter writer = null;
+        internal WaveFileWriter desktopWriter = null;
 
         public MainWindow()
         {
@@ -62,6 +64,7 @@ namespace Audio_Recorder_Demo
             {
                 writer?.Dispose();
                 writer = null;
+                waveIn.Dispose();
             };
 
             // This saves the file after the recording is done and put in a temp file
@@ -73,6 +76,58 @@ namespace Audio_Recorder_Demo
                     System.IO.File.Move(tempName, RecordingURI);
                 }
                 catch (System.IO.IOException) 
+                {
+                    System.IO.File.Delete(RecordingURI);
+                    System.IO.File.Move(tempName, RecordingURI);
+                }
+            }
+
+            URITextBlock.Text = "Recording saved to " + RecordingURI;
+        }
+
+        private void DesktopAudioRecorderButton_Click(object sender, RoutedEventArgs e)
+        {
+            DesktopAudioRecorderButton.Visibility = Visibility.Collapsed;
+            DesktopAudioRecorderOffButton.Visibility = Visibility.Visible;
+
+            desktopWriter = new WaveFileWriter(tempName, desktopWaveIn.WaveFormat);
+            desktopWaveIn.StartRecording();
+            desktopWaveIn.DataAvailable += (s, a) =>
+            {
+                desktopWriter.Write(a.Buffer, 0, a.BytesRecorded);
+            };
+
+            URITextBlock.Text = "Recording!!";
+        }
+
+        private void DesktopAudioRecorderOffButton_Click(object sender, RoutedEventArgs e)
+        {
+            DesktopAudioRecorderOffButton.Visibility = Visibility.Collapsed;
+            DesktopAudioRecorderButton.Visibility = Visibility.Visible;
+
+            var dialogue = new SaveFileDialog();
+            dialogue.Filter = "mp3 (*.mp3)|*.mp3|wav (.wav)|*.wav|All files (*.*)|*.*";
+            dialogue.FilterIndex = 2; //this just tells the computer which dialogue
+            // to select the second dialogue option
+
+            desktopWaveIn.StopRecording();
+
+            desktopWaveIn.RecordingStopped += (s, a) =>
+            {
+                desktopWriter?.Dispose();
+                desktopWriter = null;
+                desktopWaveIn.Dispose();
+            };
+
+            // This saves the file after the recording is done and put in a temp file
+            if (dialogue.ShowDialog() == true)
+            {
+                RecordingURI = dialogue.FileName.Replace("/", "\\");
+                try
+                {
+                    System.IO.File.Move(tempName, RecordingURI);
+                }
+                catch (System.IO.IOException)
                 {
                     System.IO.File.Delete(RecordingURI);
                     System.IO.File.Move(tempName, RecordingURI);
