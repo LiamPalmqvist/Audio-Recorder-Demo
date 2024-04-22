@@ -50,5 +50,6 @@
             <TextBlock Text="Stop recording" Grid.Row="0" Background="{x:Null}" FontSize="100" FontFamily="Uniform"/>
         </Button>
         <TextBlock Name="URITextBlock" Grid.Row="1" Text="{x:Null}" HorizontalAlignment="Center" Background="{x:Null}"/>
+        <Button Name="DeviceButton" Click="DeviceButton_Click"/>
     </Grid>
 </Window>
