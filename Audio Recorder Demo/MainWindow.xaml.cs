@@ -11,6 +11,7 @@ using System.Windows.Shapes;
 using System.Diagnostics;
 using Microsoft.Win32;
 using System.Runtime.InteropServices;
+using System.Data.Common;
 
 namespace Audio_Recorder_Demo
 {   
@@ -31,7 +32,15 @@ namespace Audio_Recorder_Demo
             AudioRecorderButton.Visibility = Visibility.Collapsed;
             AudioRecorderOffButton.Visibility = Visibility.Visible;
 
+            // Bits per sample = 16
+            // Samples per second = 22050
+            // Channels = 2
+            // Alignment = 4
+            // Bytes per second = (16 * 2 * 22050)/8 = 88200
+
             mciSendString("open new Type waveaudio Alias recsound", "", 0, 0);
+            string sCommand = "set recsound bitspersample 16 channels 2 alignment 4 samplespersec 22050 bytespersec 88200 format tag pcm wait";
+            mciSendString(sCommand, "", 0, 0);
             mciSendString("record recsound", "", 0, 0);
 
             URITextBlock.Text = "Recording!!";
