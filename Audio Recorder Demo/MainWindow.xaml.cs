@@ -136,5 +136,44 @@ namespace Audio_Recorder_Demo
 
             URITextBlock.Text = "Recording saved to " + RecordingURI;
         }
+
+        private void RecordAllButton_Click(object sender, RoutedEventArgs e)
+        {
+            RecordAllButton.Visibility = Visibility.Collapsed;
+            StopRecordAllButton.Visibility = Visibility.Visible;
+        }
+
+        private void StopRecordAllButton_Click(object sender, RoutedEventArgs e)
+        {
+            StopRecordAllButton.Visibility = Visibility.Collapsed;
+            RecordAllButton.Visibility = Visibility.Visible;
+        }
+
+        private void RecordAllSwitch_Click(object sender, RoutedEventArgs e)
+        {
+            DesktopAudioRecorderButton.Visibility = Visibility.Collapsed;
+            DesktopAudioRecorderOffButton.Visibility = Visibility.Collapsed;
+            AudioRecorderButton.Visibility = Visibility.Collapsed;
+            AudioRecorderOffButton.Visibility = Visibility.Collapsed;
+        }
+        
+        private void RecordAllSwitch_Unclick(object sender, RoutedEventArgs e)
+        {
+            DesktopAudioRecorderButton.Visibility = Visibility.Visible;
+            DesktopAudioRecorderOffButton.Visibility = Visibility.Visible;
+            AudioRecorderButton.Visibility = Visibility.Visible;
+            AudioRecorderOffButton.Visibility = Visibility.Visible;
+        }
     }
 }
+
+/*
+ * Audio graph generation via audio capture
+ * 
+ * STEP 1. Grab the Audio peak volume
+ * STEP 2. Transform it to be a value between 0 and 100
+ * STEP 2.5. Volume/MaxVolume * 100
+ * STEP 3. Generate waveform BAR with height equal to the calculated volume output height
+ * STEP 3.5 Possibly a <Rectangle> with custom class with Height set to calculated volume output height and Center Vertical Alignment
+ * STEP 4. Move the bar left using DoubleAnimation and Storyboard in C#
+ */

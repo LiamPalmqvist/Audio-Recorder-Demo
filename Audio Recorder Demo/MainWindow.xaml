@@ -39,11 +39,17 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
+        <Button Name="StopRecordAllButton" Click="StopRecordAllButton_Click" Grid.ColumnSpan="2" Background="Lime" Style="{StaticResource NoMouseOverButtonStyle}">
+            <TextBlock Text="Stop Recording All Audio" Background="{x:Null}" FontSize="60" FontFamily="Uniform" HorizontalAlignment="Center"/>
+        </Button>
+        <Button Name="RecordAllButton" Click="RecordAllButton_Click" Background="Red" Style="{StaticResource NoMouseOverButtonStyle}" Grid.ColumnSpan="2">
+            <TextBlock Text="Record All Audio" Background="{x:Null}" FontSize="60" FontFamily="Uniform" HorizontalAlignment="Center"/>
+        </Button>
         <Button Name="AudioRecorderButton" 
                 Click="AudioRecorderButton_Click" 
                 Style="{StaticResource NoMouseOverButtonStyle}"
                 Grid.Row="0" Background="Red" 
-                Focusable="False">
+                Focusable="False" Panel.ZIndex="1">
             <StackPanel>
                 <TextBlock Text="Record" Grid.Row="0" Grid.Column="0" Background="{x:Null}" FontSize="60" FontFamily="Uniform" HorizontalAlignment="Center"/>
                 <TextBlock Text="Mic Audio" Grid.Row="0" Grid.Column="0" Background="{x:Null}" FontSize="60" FontFamily="Uniform" HorizontalAlignment="Center"/>
@@ -64,7 +70,7 @@
         Click="DesktopAudioRecorderButton_Click" 
         Style="{StaticResource NoMouseOverButtonStyle}"
         Grid.Row="0" Grid.Column="1" Background="Red" 
-        Focusable="False">
+        Focusable="False" Panel.ZIndex="5">
             <StackPanel>
                 <TextBlock Text="Record" Grid.Row="0" Grid.Column="0" Background="{x:Null}" FontSize="60" FontFamily="Uniform" HorizontalAlignment="Center"/>
                 <TextBlock Text="Desktop Audio" Grid.Row="0" Grid.Column="0" Background="{x:Null}" FontSize="60" FontFamily="Uniform" HorizontalAlignment="Center"/>
@@ -81,5 +87,8 @@
             </StackPanel>
         </Button>
         <TextBlock Name="URITextBlock" Grid.Row="1" Text="{x:Null}" HorizontalAlignment="Center" Background="{x:Null}"/>
+        <ToggleButton Name="RecordAllSwitch" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" Width="200" ToggleButton.Checked="RecordAllSwitch_Click" ToggleButton.Unchecked="RecordAllSwitch_Unclick">
+            <TextBlock>Record All Audio</TextBlock>
+        </ToggleButton>
     </Grid>
 </Window>
